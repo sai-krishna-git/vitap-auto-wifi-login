@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "VIT AP AUTO WIFI LOGIN",
+  "description": "AUTO WIFI LOGIN FOR VITIANS",
+  "version": "1.0",
+  "action": {
+    "default_popup": "./popup/popup.html",
+    "default_icon": "./images/hello.png"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://hfw.vitap.ac.in:8090/httpclient.html/*"]
+    }
+  ]
+}

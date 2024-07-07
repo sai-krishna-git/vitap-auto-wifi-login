@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>VIT-AP AUTO WIFI LOGIN</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 300px;
+        min-height: 100px;
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        font-family: "Arial", sans-serif;
+      }
+
+      .login-container {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .login-container h2 {
+        margin-bottom: 1rem;
+        color: #333333;
+      }
+
+      .login-container input[type="text"],
+      .login-container input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      .login-container button {
+        padding: 10px 20px;
+        background: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .login-container button:hover {
+        background: #0056b3;
+      }
+
+      .login-container .footer {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #777777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>VIT-AP AUTO WIFI LOGIN</h2>
+      <form>
+        <input id="username" type="text" placeholder="Username" required />
+        <input id="password" type="password" placeholder="Password" required />
+        <button id="submit" type="submit">Submit</button>
+      </form>
+      <div class="footer">Developed by <strong>Sai Krishna</strong><br /></div>
+    </div>
+  </body>
+  <script src="./popup.js"></script>
+</html>
