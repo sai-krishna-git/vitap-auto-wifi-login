@@ -3,15 +3,26 @@
   "name": "VIT AP AUTO WIFI LOGIN",
   "description": "AUTO WIFI LOGIN FOR VITIANS",
   "version": "1.0",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://hfw.vitap.ac.in/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://hfw.vitap.ac.in/*"]
+    }
+  ],
   "action": {
     "default_popup": "./popup/popup.html",
     "default_icon": "./images/hello.png"
   },
-  "permissions": ["storage"],
-  "content_scripts": [
+
+  "web_accessible_resources": [
     {
-      "js": ["scripts/content.js"],
-      "matches": ["https://hfw.vitap.ac.in:8090/httpclient.html/*"]
+      "resources": ["scripts/inject.js"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
