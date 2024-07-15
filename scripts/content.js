@@ -1,6 +1,5 @@
 // setting the values;
 
-var passwordField = document.getElementById("password")
 console.log("setter called")
 chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   if (result.wifi_username) {
@@ -8,14 +7,16 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
     document.getElementById("username").value = result.wifi_username
 
     if (result.wifi_password) {
-      passwordField.value = result.wifi_password
+      document.getElementById("password").value = result.wifi_password
     } else {
       console.log("No password found")
     }
   } else {
     console.log("No username found")
   }
+  injectScript("scripts/inject.js")
 })
+
 function injectScript(file) {
   var script = document.createElement("script")
   script.setAttribute("type", "text/javascript")
@@ -25,4 +26,3 @@ function injectScript(file) {
     script.remove()
   }
 }
-injectScript("scripts/inject.js")
