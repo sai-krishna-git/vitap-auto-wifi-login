@@ -9,12 +9,6 @@ document.getElementById("submit").addEventListener("click", function (event) {
   sync()
 })
 
-// document.getElementById("logOut").addEventListener("click",()=>{
-//   chrome.tabs.create({
-//     url: "onboarding.html",
-//   })
-// })
-
 function sync() {
   let username = document.getElementById("username").value
   let password = document.getElementById("password").value

@@ -14,15 +14,19 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   } else {
     console.log("No username found")
   }
-  injectScript("scripts/inject-2.js")
+  injectScript("scripts/inject-1.js", function () {
+    // Send a message to the background script to close the tab
+    chrome.runtime.sendMessage({ action: "closeTab" })
+  })
 })
 
-function injectScript(file) {
+function injectScript(file, callback) {
   var script = document.createElement("script")
   script.setAttribute("type", "text/javascript")
   script.setAttribute("src", chrome.runtime.getURL(file))
   ;(document.head || document.documentElement).appendChild(script)
   script.onload = function () {
     script.remove()
+    if (callback) callback()
   }
 }

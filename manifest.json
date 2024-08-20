@@ -3,7 +3,7 @@
   "name": "VIT AP AUTO WIFI LOGIN",
   "description": "AUTO WIFI LOGIN FOR VITIANS",
   "version": "1.0",
-  "permissions": ["storage", "scripting", "activeTab"],
+  "permissions": ["storage", "scripting", "activeTab", "tabs"],
   "host_permissions": ["https://hfw.vitap.ac.in/*"],
   "content_scripts": [
     {
@@ -32,5 +32,13 @@
       "resources": ["scripts/inject-2.js"],
       "matches": ["http://172.18.10.10:1000/*"]
     }
-  ]
+  ],
+  "commands": {
+    "executeScriptCommand": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "Execute script and close tab"
+    }
+  }
 }

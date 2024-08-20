@@ -1,30 +1,31 @@
-function pingServerWithXHR() {
-  const xhr = new XMLHttpRequest()
-  xhr.open("GET", "https://hfw.vitap.ac.in:8090/images/logo-sophos.png", true)
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status >= 200 && xhr.status < 400) {
-        console.log("Server is reachable. Opening tab...")
-        chrome.tabs.create(
-          { url: "https://hfw.vitap.ac.in:8090/httpclient.html" },
-          (tab) => {
-            console.log("Tab created, injecting content script...")
-            chrome.scripting.executeScript({
-              target: { tabId: tab.id },
-              files: ["content-script-1.js"],
-            })
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "closeTab" && sender.tab) {
+    chrome.tabs.remove(sender.tab.id)
+  }
+})
+chrome.commands.onCommand.addListener((command) => {
+  if (command === "executeScriptCommand") {
+    chrome.tabs.create(
+      { url: "https://hfw.vitap.ac.in:8090/httpclient.html" },
+      (tab) => {
+        chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
+          if (tabId === tab.id && changeInfo.status === "complete") {
+            chrome.tabs.onUpdated.removeListener(listener)
+            chrome.tabs.sendMessage(
+              tab.id,
+              { action: "injectScript" },
+              (response) => {
+                if (chrome.runtime.lastError) {
+                  console.error(
+                    "Error sending message:",
+                    chrome.runtime.lastError
+                  )
+                }
+              }
+            )
           }
-        )
-      } else {
-        console.log("Server is not reachable.")
+        })
       }
-    }
+    )
   }
-  xhr.onerror = function () {
-    console.log("Request failed. Server is not reachable.")
-  }
-  xhr.send()
-}
-
-// Call the function when needed
-pingServerWithXHR()
+})
