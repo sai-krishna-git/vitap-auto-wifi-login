@@ -14,7 +14,8 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   } else {
     console.log("No username found")
   }
-  injectScript("scripts/inject.js")
+  injectScript("scripts/inject-1.js")
+  chrome.runtime.sendMessage({ action: "changeTab" })
 })
 
 function injectScript(file) {
