@@ -25,7 +25,6 @@ async function performLoginAndLogout(shouldLogout) {
     if (shouldLogout) {
       await injectScript("scripts/inject-1.js")
       console.log("Logout script executed.")
-      // Optionally close the tab after logout
     }
   } catch (error) {
     console.error("Error in script execution:", error)
@@ -56,7 +55,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // If triggered by the shortcut, perform login and logout
     performLoginAndLogout(true)
     sendResponse({ status: "Login and Logout process started." })
-    return true
   }
 })
 

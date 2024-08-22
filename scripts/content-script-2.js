@@ -14,7 +14,7 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   } else {
     console.log("No username found")
   }
-  injectScript("scripts/inject-1.js", function () {
+  injectScript("scripts/inject-2.js", function () {
     // Send a message to the background script to close the tab
     chrome.runtime.sendMessage({ action: "closeTab" })
   })
