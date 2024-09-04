@@ -8,8 +8,6 @@ chrome.runtime.onStartup.addListener(() => {
   chrome.tabs.create(
     { url: "https://hfw.vitap.ac.in:8090/httpclient.html" },
     (tab) => {
-      chrome.storage.sync.set({ tabId: tab.id })
-      console.log("TabId of the created Tab:" + tab.id)
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: checkPageAvailabilityInTab,
@@ -33,23 +31,50 @@ function checkPageAvailabilityInTab() {
 }
 chrome.commands.onCommand.addListener((command) => {
   if (command === "executeScriptCommand") {
-    chrome.storage.sync.get("tabId", (result) => {
-      if (result.tabId) {
-        // Check if the tab still exists
-        chrome.tabs.get(result.tabId, (tab) => {
-          if (chrome.runtime.lastError || !tab) {
-            // Tab doesn't exist, create a new one
-            createAndInjectScript()
+    chrome.storage.sync.get("page", (res) => {
+      if (res.page === "hostel") {
+        chrome.storage.sync.get("TabId", (result) => {
+          if (result.tabId) {
+            // Check if the tab still exists
+            chrome.tabs.get(result.tabId, (tab) => {
+              if (chrome.runtime.lastError || !tab) {
+                // Tab doesn't exist, create a new one
+                createAndInjectScript()
+              } else {
+                console.log("tab exists")
+                // Tab exists, focus on it and inject script
+                chrome.tabs.update(result.tabId, { active: true })
+                injectScriptIntoTab(result.tabId)
+              }
+            })
           } else {
-            console.log("tab exists")
-            // Tab exists, focus on it and inject script
-            chrome.tabs.update(result.tabId, { active: true })
-            injectScriptIntoTab(result.tabId)
+            // No tabId found, create a new tab
+            createAndInjectScript()
           }
         })
       } else {
-        // No tabId found, create a new tab
-        createAndInjectScript()
+        chrome.storage.sync.get("TabId", (result) => {
+          if (result.tabId) {
+            console.log("inside UNI tabs exists")
+            // Check if the tab still exists
+            chrome.tabs.get(result.tabId, (tab) => {
+              if (chrome.runtime.lastError || !tab) {
+                // Tab doesn't exist, create a new one
+                chrome.tabs.create({ url: "http://172.18.10.10:1000/logout?" })
+              } else {
+                console.log("tab exists")
+                // Tab exists, focus on it and inject script
+                chrome.tabs.update(result.tabId, { active: true })
+                chrome.tabs.update(undefined, {
+                  url: "http://172.18.10.10:1000/logout?",
+                })
+              }
+            })
+          } else {
+            // No tabId found, create a new tab
+            chrome.tabs.create({ url: "http://172.18.10.10:1000/logout?" })
+          }
+        })
       }
     })
   }

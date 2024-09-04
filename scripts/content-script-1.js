@@ -20,6 +20,7 @@ async function performLoginAndLogout(shouldLogout) {
 
   try {
     await injectScript("scripts/inject-1.js")
+    chrome.storage.sync.set({ page: "hostel" })
     console.log("Login script executed.")
 
     if (shouldLogout) {
@@ -30,10 +31,12 @@ async function performLoginAndLogout(shouldLogout) {
     console.error("Error in script execution:", error)
   } finally {
     release() // Release the mutex lock after the function completes
+    console.log("op complete" + new Date())
   }
 }
 
 function injectScript(file) {
+  console.log("injecting " + new Date())
   return new Promise((resolve, reject) => {
     const script = document.createElement("script")
     script.setAttribute("type", "text/javascript")
@@ -53,7 +56,8 @@ function injectScript(file) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "injectScript") {
     // If triggered by the shortcut, perform login and logout
-    performLoginAndLogout(true)
+
+    setTimeout(() => injectScript("scripts/inject-1.js"), 600)
     sendResponse({ status: "Login and Logout process started." })
   }
 })
@@ -75,4 +79,5 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
 
   // Perform login without logout
   performLoginAndLogout(false)
+  setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000)
 })
