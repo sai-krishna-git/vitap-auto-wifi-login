@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <title>VIT-AP AUTO WIFI LOGIN</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
       body {
         display: flex;
@@ -35,9 +39,24 @@
         border-radius: 5px;
         box-sizing: border-box;
       }
+      .main-button {
+        height: 25px;
+        width: 100px;
+        background: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 1rem;
+        margin-top: 7px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .main-button a {
+        color: white;
+        text-decoration: none;
+      }
 
-      .login-container button {
-        padding: 10px 20px;
+      #addUserBtn {
         background: #007bff;
         border: none;
         border-radius: 5px;
@@ -46,9 +65,15 @@
         cursor: pointer;
         transition: 0.3s;
       }
+      #userList button {
+        color: #777777;
+      }
 
-      .login-container button:hover {
-        background: #0056b3;
+      .fa-edit:hover {
+        color: #1c7ee7;
+      }
+      .fa-trash:hover {
+        color: #f64515;
       }
 
       .login-container .footer {
@@ -56,18 +81,115 @@
         font-size: 0.9rem;
         color: #777777;
       }
+      .icon-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      #linkedinLink {
+        color: blue;
+        text-decoration: none;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #linkedinLink:hover {
+        color: darkblue;
+      }
+      /* Notification styling */
+      .notification {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 10px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        font-size: 12px;
+      }
+
+      /* Show the notification */
+      .show {
+        visibility: visible;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+
+      /* Animations for the notification */
+      @keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+      .user-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px solid #ccc; /* Optional for separating items */
+      }
+      input[type="radio"] {
+        margin-right: 10px; /* Spacing between radio and label */
+      }
+      .user-label {
+        flex-grow: 1; /* Ensure label takes up remaining space */
+      }
     </style>
   </head>
   <body>
     <div class="login-container">
       <h2>VIT-AP AUTO WIFI LOGIN</h2>
-      <form>
-        <input id="username" type="text" placeholder="Username" required />
-        <input id="password" type="password" placeholder="Password" required />
-        <input type="checkbox" onclick="myFunction()" />Show Password
-        <button id="submit" type="submit">Submit</button>
-      </form>
-      <div class="footer">Developed by <strong>Sai Krishna</strong><br /></div>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button class="main-button" id="addUserBtn">Add User</button>
+      <button class="main-button">
+        <a href="https://172.18.10.10:1000/login?" target="_blank"
+          >University</a
+        >
+      </button>
+      <button class="main-button">
+        <a href="https://hfw.vitap.ac.in:8090/httpclient.html" target="_blank"
+          >Hostel 1</a
+        >
+      </button>
+      <button class="main-button">
+        <a href="https://hfw2.vitap.ac.in:8090/httpclient.html" target="_blank"
+          >Hostel 2</a
+        >
+      </button>
+      <h3>Saved Users</h3>
+      <div id="userList"></div>
+      <div id="notification" class="notification"></div>
+      <div class="footer">
+        Developed by
+        <a
+          href="https://www.linkedin.com/in/saikrishnagaddam"
+          id="linkedinLink"
+          target="_blank"
+          >Sai Krishna</a
+        >
+      </div>
     </div>
   </body>
   <script src="./popup.js"></script>
