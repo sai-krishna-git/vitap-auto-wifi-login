@@ -19,8 +19,13 @@
     "service_worker": "scripts/background.js"
   },
   "action": {
-    "default_popup": "./popup/popup.html",
-    "default_icon": "./images/hello.png"
+    "default_popup": "./popup/popup.html"
+  },
+  "icons": {
+    "16": "images/logo.png",
+    "32": "images/logo.png",
+    "48": "images/logo.png",
+    "128": "images/logo.png"
   },
 
   "web_accessible_resources": [
@@ -36,7 +41,7 @@
   "commands": {
     "executeScriptCommand": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Y"
+        "default": "Ctrl+Shift+Z"
       },
       "description": "Execute script and close tab"
     }

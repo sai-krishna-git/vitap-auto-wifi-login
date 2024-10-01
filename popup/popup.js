@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = passwordInput.value;
     if (username && password) {
       addUser(username, password);
+      showNotification(`User "${username}" Added successfully`);
       usernameInput.value = "";
       passwordInput.value = "";
     }
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add event listener to update the selected user when the radio button is clicked
         radioBtn.addEventListener("change", () => {
           sync(user.username, user.password);
-          showNotification(`Username "${user.username}" selected successfully`);
+          showNotification(`User "${user.username}" selected successfully`);
 
           // Update the selected user in chrome.storage
           chrome.storage.local.set({ selectedUserIndex: index });
@@ -130,14 +131,19 @@ function sync(username, password) {
     console.log("password saved: " + password);
   });
 }
-
+let notificationTimeout;
 function showNotification(message) {
   const notification = document.getElementById("notification");
   notification.textContent = message;
-  notification.classList.add("show");
+  notification.style.display = "block";
+
+  // Clear any existing timeout
+  if (notificationTimeout) {
+    clearTimeout(notificationTimeout);
+  }
 
   // Hide the notification after 3 seconds
-  setTimeout(() => {
-    notification.classList.remove("show");
+  notificationTimeout = setTimeout(() => {
+    notification.style.display = "none";
   }, 3000);
 }

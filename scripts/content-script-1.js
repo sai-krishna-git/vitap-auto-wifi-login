@@ -2,7 +2,6 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "injectScript") {
     // If triggered by the shortcut, perform login and logout
-
     setTimeout(() => injectScript("scripts/inject-1.js"), 600);
     sendResponse({ status: "Login and Logout process started." });
   }

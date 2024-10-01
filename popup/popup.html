@@ -41,7 +41,7 @@
       }
       .main-button {
         height: 25px;
-        width: 100px;
+        width: 110px;
         background: #007bff;
         border: none;
         border-radius: 5px;
@@ -51,9 +51,21 @@
         cursor: pointer;
         transition: 0.3s;
       }
+
       .main-button a {
         color: white;
         text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .main-button i {
+        color: white;
+        transition: 0.3s;
+      }
+
+      .main-button:hover a,
+      .main-button:hover i {
+        color: black; /* Change both text and icon color to black */
       }
 
       #addUserBtn {
@@ -99,7 +111,7 @@
       }
       /* Notification styling */
       .notification {
-        visibility: hidden;
+        display: none;
         min-width: 250px;
         background-color: #333;
         color: #fff;
@@ -116,7 +128,7 @@
 
       /* Show the notification */
       .show {
-        visibility: visible;
+        display: block;
         animation: fadein 0.5s, fadeout 0.5s 2.5s;
       }
 
@@ -145,6 +157,8 @@
       .user-item {
         display: flex;
         align-items: center;
+        font-size: 2 rem;
+
         justify-content: space-between;
         padding: 5px 0;
         border-bottom: 1px solid #ccc; /* Optional for separating items */
@@ -155,29 +169,47 @@
       .user-label {
         flex-grow: 1; /* Ensure label takes up remaining space */
       }
+      #logo {
+        border-radius: 20px;
+      }
+      .heading {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      p {
+        font-weight: 600;
+        color: #6b6565;
+      }
     </style>
   </head>
   <body>
     <div class="login-container">
-      <h2>VIT-AP AUTO WIFI LOGIN</h2>
+      <h2>VIT WIFI AUTO LOGIN</h2>
       <input type="text" id="username" placeholder="Username" />
       <input type="password" id="password" placeholder="Password" />
-      <button class="main-button" id="addUserBtn">Add User</button>
+      <button class="main-button" id="addUserBtn">
+        <i class="fa-solid fa-user-plus"></i>
+        <a>Add User</a>
+      </button>
       <button class="main-button">
+        <i class="fa-solid fa-right-to-bracket"></i>
         <a href="https://172.18.10.10:1000/login?" target="_blank"
           >University</a
         >
       </button>
       <button class="main-button">
+        <i class="fa-solid fa-right-to-bracket"></i>
         <a href="https://hfw.vitap.ac.in:8090/httpclient.html" target="_blank"
           >Hostel 1</a
         >
       </button>
       <button class="main-button">
+        <i class="fa-solid fa-right-to-bracket"></i>
         <a href="https://hfw2.vitap.ac.in:8090/httpclient.html" target="_blank"
           >Hostel 2</a
         >
       </button>
+      <p><i> Pro Tip: Use Shortcut (CTRL+SHIFT+Z) to Logout</i></p>
       <h3>Saved Users</h3>
       <div id="userList"></div>
       <div id="notification" class="notification"></div>

@@ -8,9 +8,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 chrome.runtime.onStartup.addListener(() => {
   //checking for each site
   createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
-  createTab("https://hfw2.vitap.ac.in:8090/httpclient.html");
-  createTab("https://hfw3.vitap.ac.in:8090/httpclient.html");
-  createTab("http://172.18.10.10:1000/logout?");
 });
 function createTab(webURL) {
   chrome.tabs.create({ url: webURL }, (tab) => {
