@@ -1,8 +1,6 @@
-const button = document.querySelector('.primary[type="submit"]')
+const button = document.querySelector('.primary[type="submit"]');
 if (button) {
-  console.log("inside button")
-  button.click()
+  button.click();
 } else {
-  console.log("Not clicked")
+  console.error("submit button is not defined");
 }
-console.log("after clicking" + new Date())

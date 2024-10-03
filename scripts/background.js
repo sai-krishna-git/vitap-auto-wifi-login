@@ -7,7 +7,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 chrome.runtime.onStartup.addListener(() => {
   //checking for each site
-  createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
+  chrome.storage.sync.get("startup", (res) => {
+    if (res.startup === "true") {
+      createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
+    }
+  });
 });
 function createTab(webURL) {
   chrome.tabs.create({ url: webURL }, (tab) => {
@@ -25,68 +29,33 @@ function createTab(webURL) {
 chrome.commands.onCommand.addListener((command) => {
   if (command === "executeScriptCommand") {
     chrome.storage.sync.get("page", (res) => {
-      if (res.page === "hostel") {
-        chrome.storage.sync.get("TabId", (result) => {
-          if (result.tabId) {
-            // Check if the tab still exists
-            chrome.tabs.get(result.tabId, (tab) => {
-              if (chrome.runtime.lastError || !tab) {
-                // Tab doesn't exist, create a new one
-                createAndInjectScript();
-              } else {
-                console.log("tab exists");
-                // Tab exists, focus on it and inject script
-                chrome.tabs.update(result.tabId, { active: true });
-                injectScriptIntoTab(result.tabId);
-              }
-            });
-          } else {
-            // No tabId found, create a new tab
-            createAndInjectScript();
-          }
-        });
+      if (res.page === "hostel1") {
+        createAndInjectScript("https://hfw.vitap.ac.in:8090/httpclient.html");
+      } else if (res.page === "hostel2") {
+        createAndInjectScript("https://hfw2.vitap.ac.in:8090/httpclient.html");
       } else {
-        chrome.storage.sync.get("TabId", (result) => {
-          if (result.tabId) {
-            console.log("inside UNI tabs exists");
-            // Check if the tab still exists
-            chrome.tabs.get(result.tabId, (tab) => {
-              if (chrome.runtime.lastError || !tab) {
-                // Tab doesn't exist, create a new one
-                chrome.tabs.create({ url: "http://172.18.10.10:1000/logout?" });
-              } else {
-                console.log("tab exists");
-                // Tab exists, focus on it and inject script
-                chrome.tabs.update(result.tabId, { active: true });
-                chrome.tabs.update(undefined, {
-                  url: "http://172.18.10.10:1000/logout?",
-                });
-              }
-            });
-          } else {
-            // No tabId found, create a new tab
-            chrome.tabs.create({ url: "http://172.18.10.10:1000/logout?" });
-          }
-        });
+        chrome.tabs.create({ url: "https://172.18.10.10:1000/logout?" });
       }
     });
+  } else if (command === "loginToHostel1") {
+    createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
+  } else if (command === "loginToHostel2") {
+    createTab("https://hfw2.vitap.ac.in:8090/httpclient.html");
+  } else if (command === "loginToUniversity") {
+    createTab("https://172.18.10.10:1000/login?");
   }
 });
 
-function createAndInjectScript() {
-  console.log("tab does not exists");
-  chrome.tabs.create(
-    { url: "https://hfw.vitap.ac.in:8090/httpclient.html" },
-    (tab) => {
-      chrome.storage.sync.set({ tabId: tab.id });
-      chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
-        if (tabId === tab.id && changeInfo.status === "complete") {
-          chrome.tabs.onUpdated.removeListener(listener);
-          injectScriptIntoTab(tab.id);
-        }
-      });
-    }
-  );
+function createAndInjectScript(webURL) {
+  chrome.tabs.create({ url: webURL }, (tab) => {
+    chrome.storage.sync.set({ tabId: tab.id });
+    chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
+      if (tabId === tab.id && changeInfo.status === "complete") {
+        chrome.tabs.onUpdated.removeListener(listener);
+        injectScriptIntoTab(tab.id);
+      }
+    });
+  });
 }
 
 function injectScriptIntoTab(tabId) {

@@ -19,7 +19,7 @@
 
       .login-container {
         background: #ffffff;
-        padding: 2rem;
+        padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
@@ -63,13 +63,11 @@
         transition: 0.3s;
       }
 
-      .main-button:hover a,
-      .main-button:hover i {
-        color: black; /* Change both text and icon color to black */
+      .main-button:hover {
+        background-color: #004cff; /* Change both text and icon color to black */
       }
 
       #addUserBtn {
-        background: #007bff;
         border: none;
         border-radius: 5px;
         color: #ffffff;
@@ -174,42 +172,173 @@
       }
       .heading {
         display: flex;
-        margin-bottom: 20px;
+        justify-content: center;
+        align-items: center;
       }
       p {
         font-weight: 600;
         color: #6b6565;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 56px;
+        height: 28px;
+      }
+
+      /* Hide default HTML checkbox */
+      .switch #toggle {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+      #toggle:checked + .slider {
+        background-color: #2196f3;
+      }
+      #toggle:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+      }
+      #toggle:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .login-main {
+        margin-top: 10px;
+      }
+      #startup {
+        font-size: 15px;
+        color: black;
+        font-weight: normal;
+        margin-right: 10px;
+      }
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 1rem;
+        margin: 10px;
+      }
+
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 170px;
+        background-color: #333;
+        color: #fff;
+        text-align: left;
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; /* Position above the icon */
+        left: 50%;
+        margin-left: -110px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 12px;
+      }
+
+      /* Tooltip arrow */
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%; /* Bottom of the tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+      }
+
+      /* Show the tooltip text when hovered */
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
       }
     </style>
   </head>
   <body>
     <div class="login-container">
       <h2>VIT WIFI AUTO LOGIN</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button class="main-button" id="addUserBtn">
-        <i class="fa-solid fa-user-plus"></i>
-        <a>Add User</a>
-      </button>
-      <button class="main-button">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <a href="https://172.18.10.10:1000/login?" target="_blank"
-          >University</a
-        >
-      </button>
-      <button class="main-button">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <a href="https://hfw.vitap.ac.in:8090/httpclient.html" target="_blank"
-          >Hostel 1</a
-        >
-      </button>
-      <button class="main-button">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <a href="https://hfw2.vitap.ac.in:8090/httpclient.html" target="_blank"
-          >Hostel 2</a
-        >
-      </button>
-      <p><i> Pro Tip: Use Shortcut (CTRL+SHIFT+Z) to Logout</i></p>
+      <div class="heading">
+        <p id="startup">Startup Login</p>
+        <label class="switch">
+          <input id="toggle" type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="login-main">
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button class="main-button" id="addUserBtn">
+          <i class="fa-solid fa-user-plus"></i>
+          <a>Add User</a>
+        </button>
+        <button class="main-button">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <a href="https://172.18.10.10:1000/login?" target="_blank"
+            >University</a
+          >
+        </button>
+        <button class="main-button">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <a href="https://hfw.vitap.ac.in:8090/httpclient.html" target="_blank"
+            >Hostel 1</a
+          >
+        </button>
+        <button class="main-button">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <a
+            href="https://hfw2.vitap.ac.in:8090/httpclient.html"
+            target="_blank"
+            >Hostel 2</a
+          >
+        </button>
+      </div>
+      <p>
+        <i>
+          Pro Tip: Use Shortcuts.<span class="tooltip">
+            <i class="fas fa-info-circle"></i>
+            <span class="tooltiptext">
+              <b>Shortcuts:</b> <br />
+              ( ALT + 1 ) to Login Hostel 1<br />
+              ( ALT + 2 ) to Login Hostel 2<br />
+              ( ALT + 3 ) to Login University<br />
+              ( ALT + Z ) to Logout
+            </span>
+          </span>
+        </i>
+      </p>
       <h3>Saved Users</h3>
       <div id="userList"></div>
       <div id="notification" class="notification"></div>

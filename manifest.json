@@ -41,9 +41,27 @@
   "commands": {
     "executeScriptCommand": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Z"
+        "default": "Alt+Z"
       },
       "description": "Execute script and close tab"
+    },
+    "loginToHostel1": {
+      "suggested_key": {
+        "default": "Alt+1"
+      },
+      "description": "login To Hostel1"
+    },
+    "loginToHostel2": {
+      "suggested_key": {
+        "default": "Alt+2"
+      },
+      "description": "login To Hostel2"
+    },
+    "loginToUniversity": {
+      "suggested_key": {
+        "default": "Alt+3"
+      },
+      "description": "login To University"
     }
   }
 }

@@ -27,7 +27,12 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000);
 });
 function injectScript(file) {
-  chrome.storage.sync.set({ page: "hostel" });
+  const currentPageUrl = window.location.href;
+  if (currentPageUrl.startsWith("https://hfw.")) {
+    chrome.storage.sync.set({ page: "hostel1" });
+  } else {
+    chrome.storage.sync.set({ page: "hostel2" });
+  }
   var script = document.createElement("script");
   script.setAttribute("type", "text/javascript");
   script.setAttribute("src", chrome.runtime.getURL(file));
