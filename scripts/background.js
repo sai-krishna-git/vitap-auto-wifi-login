@@ -10,6 +10,8 @@ chrome.runtime.onStartup.addListener(() => {
   chrome.storage.sync.get("startup", (res) => {
     if (res.startup === "true") {
       createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
+      createTab("https://hfw2.vitap.ac.in:8090/httpclient.html");
+      createTab("https://172.18.10.10:1000/login?");
     }
   });
 });

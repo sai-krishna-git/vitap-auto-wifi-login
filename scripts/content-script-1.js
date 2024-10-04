@@ -22,7 +22,6 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
     console.log("No username found");
   }
 
-  // Perform login without logout
   injectScript("scripts/inject-1.js");
   setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000);
 });
