@@ -41,7 +41,7 @@
   "commands": {
     "executeScriptCommand": {
       "suggested_key": {
-        "default": "Alt+Z"
+        "default": "Alt+Q"
       },
       "description": "Execute script and close tab"
     },
