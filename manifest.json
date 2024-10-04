@@ -1,17 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "VIT AUTO WIFI LOGIN",
-  "description": "AUTO WIFI LOGIN FOR VITIANS",
+  "name": "VIT InstaConnect",
+  "description": "Instantly connect to VIT Wi-Fi without manual logins",
   "version": "1.0",
   "permissions": ["storage", "scripting", "tabs"],
-  "host_permissions": ["https://hfw.vitap.ac.in/*"],
+  "host_permissions": [
+    "https://hfw.vitap.ac.in/*",
+    "https://hfw2.vitap.ac.in/*"
+  ],
   "content_scripts": [
     {
       "matches": ["http://172.18.10.10:1000/*"],
       "js": ["scripts/content-script-2.js"]
     },
     {
-      "matches": ["https://hfw.vitap.ac.in:8090/*"],
+      "matches": [
+        "https://hfw.vitap.ac.in:8090/*",
+        "https://hfw2.vitap.ac.in/*"
+      ],
       "js": ["scripts/content-script-1.js"]
     }
   ],
@@ -31,7 +37,7 @@
   "web_accessible_resources": [
     {
       "resources": ["scripts/inject-1.js"],
-      "matches": ["https://hfw.vitap.ac.in/*"]
+      "matches": ["https://hfw.vitap.ac.in/*", "https://hfw2.vitap.ac.in/*"]
     },
     {
       "resources": ["scripts/inject-2.js"],
