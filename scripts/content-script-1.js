@@ -1,10 +1,7 @@
-// Listen for the background message to start the process
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "injectScript") {
-    // If triggered by the shortcut, perform login and logout
-    setTimeout(() => injectScript("scripts/inject-1.js"), 600);
-    sendResponse({ status: "Login and Logout process started." });
-  }
+let logout;
+chrome.storage.sync.get(["logout"]).then((result) => {
+  logout = result.logout;
+  console.log("Value is " + result.logout);
 });
 
 // When the page is loaded normally, just perform the login
@@ -21,22 +18,41 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   } else {
     console.log("No username found");
   }
-
-  injectScript("scripts/inject-1.js");
-  setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000);
+  // Inject the external script and close the tab after it's fully executed
+  injectScript().then(() => {
+    console.log("Script injected", logout);
+    if (logout === "true") {
+      setTimeout(() => {
+        injectScript().then(() => {
+          setTimeout(
+            () => chrome.runtime.sendMessage({ action: "closeTab" }),
+            800
+          );
+        });
+      }, 500);
+    } else {
+      setTimeout(
+        () => chrome.runtime.sendMessage({ action: "closeTab" }),
+        1000
+      );
+    }
+  });
 });
-function injectScript(file) {
-  const currentPageUrl = window.location.href;
-  if (currentPageUrl.startsWith("https://hfw.")) {
-    chrome.storage.sync.set({ page: "hostel1" });
-  } else {
-    chrome.storage.sync.set({ page: "hostel2" });
-  }
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", chrome.runtime.getURL(file));
-  (document.head || document.documentElement).appendChild(script);
-  script.onload = function () {
-    script.remove();
-  };
+function injectScript() {
+  return new Promise((resolve) => {
+    const currentPageUrl = window.location.href;
+    if (currentPageUrl.startsWith("https://hfw.")) {
+      chrome.storage.sync.set({ page: "hostel1" });
+    } else {
+      chrome.storage.sync.set({ page: "hostel2" });
+    }
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", chrome.runtime.getURL("scripts/inject-1.js"));
+    script.onload = () => {
+      script.remove(); // Remove the script after it has executed
+      resolve(); // Resolve the promise
+    };
+    (document.head || document.documentElement).appendChild(script);
+  });
 }

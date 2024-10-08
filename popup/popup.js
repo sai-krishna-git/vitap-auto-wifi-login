@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (users.length > 0 && selectedUserIndex === -1) {
         chrome.storage.local.set({ selectedUserIndex: 0 }, () => {
           // Reload the users to reflect the auto-selection
+          sync(users[0].username, users[0].password);
           loadUsers();
         });
       }

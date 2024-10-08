@@ -1,6 +1,4 @@
 // setting the values;
-
-console.log("setter called");
 chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   if (result.wifi_username) {
     console.log("Retrieved username: " + result.wifi_username);
@@ -15,19 +13,22 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
     console.log("No username found");
   }
 
-  injectScript("scripts/inject-2.js");
-
   // Send a message to the background script to close the tab
+  injectScript().then(() => {
+    setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000);
+  });
 });
-setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 500);
 
 function injectScript(file) {
-  chrome.storage.sync.set({ page: "university" });
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", chrome.runtime.getURL(file));
-  (document.head || document.documentElement).appendChild(script);
-  script.onload = function () {
-    script.remove();
-  };
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ page: "university" });
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", chrome.runtime.getURL(file));
+    script.onload = function () {
+      script.remove();
+      resolve();
+    };
+    (document.head || document.documentElement).appendChild(script);
+  });
 }

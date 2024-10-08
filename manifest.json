@@ -3,7 +3,7 @@
   "name": "VIT InstaConnect",
   "description": "Instantly connect to VIT Wi-Fi without manual logins",
   "version": "1.0",
-  "permissions": ["storage", "scripting", "tabs"],
+  "permissions": ["storage", "tabs"],
   "host_permissions": [
     "https://hfw.vitap.ac.in/*",
     "https://hfw2.vitap.ac.in/*"

@@ -43,7 +43,7 @@ body {
   transition: 0.3s;
 }
 
-.main-button a {
+a {
   color: white;
   text-decoration: none;
   transition: 0.3s;
