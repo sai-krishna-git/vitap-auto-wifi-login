@@ -16,17 +16,7 @@ chrome.runtime.onStartup.addListener(() => {
   });
 });
 function createTab(webURL) {
-  chrome.tabs.create({ url: webURL }, (tab) => {
-    chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tabInfo) {
-      if (tabId === tab.id) {
-        // Check if the tab encounters an error
-        if (changeInfo.status === "complete" && changeInfo.url === undefined) {
-          // If the page couldn't load, remove the tab (e.g., ERR_CONNECTION_TIMED_OUT)
-          setTimeout(() => chrome.tabs.remove(tabId), 1500);
-        }
-      }
-    });
-  });
+  chrome.tabs.create({ url: webURL });
 }
 chrome.commands.onCommand.addListener((command) => {
   if (command === "executeScriptCommand") {

@@ -1,4 +1,5 @@
 // setting the values;
+console.log("Setter Called");
 chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   if (result.wifi_username) {
     console.log("Retrieved username: " + result.wifi_username);
@@ -14,9 +15,7 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
   }
 
   // Send a message to the background script to close the tab
-  injectScript().then(() => {
-    setTimeout(() => chrome.runtime.sendMessage({ action: "closeTab" }), 1000);
-  });
+  injectScript("scripts/inject-2.js");
 });
 
 function injectScript(file) {

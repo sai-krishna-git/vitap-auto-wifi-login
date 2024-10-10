@@ -23,18 +23,8 @@ chrome.storage.sync.get(["wifi_username", "wifi_password"], function (result) {
     console.log("Script injected", logout);
     if (logout === "true") {
       setTimeout(() => {
-        injectScript().then(() => {
-          setTimeout(
-            () => chrome.runtime.sendMessage({ action: "closeTab" }),
-            800
-          );
-        });
+        injectScript();
       }, 500);
-    } else {
-      setTimeout(
-        () => chrome.runtime.sendMessage({ action: "closeTab" }),
-        1000
-      );
     }
   });
 });
