@@ -3,27 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById("password");
   const addUserBtn = document.getElementById("addUserBtn");
   const userList = document.getElementById("userList");
-  const toggleInput = document.getElementById("toggle");
+  // const toggleInput = document.getElementById("toggle");
 
-  chrome.storage.sync.get("startup", function (result) {
-    toggle.checked = result.startup === "true";
-  });
+  // chrome.storage.sync.get("startup", function (result) {
+  //   toggle.checked = result.startup === "true";
+  // });
+
+  // toggle.addEventListener("change", function () {
+  //   if (this.checked) {
+  //     // Toggle is ON
+  //     chrome.storage.sync.set({ startup: "true" }, function () {
+  //       console.log("Startup set to true");
+  //     });
+  //   } else {
+  //     // Toggle is OFF
+  //     chrome.storage.sync.set({ startup: "false" }, function () {
+  //       console.log("Startup set to false");
+  //     });
+  //   }
+  // });
+
   // Load users from chrome storage on page load
   loadUsers();
-
-  toggle.addEventListener("change", function () {
-    if (this.checked) {
-      // Toggle is ON
-      chrome.storage.sync.set({ startup: "true" }, function () {
-        console.log("Startup set to true");
-      });
-    } else {
-      // Toggle is OFF
-      chrome.storage.sync.set({ startup: "false" }, function () {
-        console.log("Startup set to false");
-      });
-    }
-  });
 
   // Add user on button click
   addUserBtn.addEventListener("click", () => {
