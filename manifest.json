@@ -50,8 +50,7 @@
   "commands": {
     "executeScriptCommand": {
       "suggested_key": {
-        "default": "Alt+Q",
-        "mac": "Command+Q"
+        "default": "Alt+Q"
       },
       "description": "Execute script and close tab"
     },
