@@ -166,3 +166,41 @@ function showNotification(message) {
     notification.style.display = "none";
   }, 3000);
 }
+function detectOS() {
+  const userAgent = window.navigator.userAgent;
+  if (userAgent.indexOf("Mac") !== -1) {
+    return "MacOS";
+  } else if (userAgent.indexOf("Windows") !== -1) {
+    return "Windows";
+  } else {
+    return "Other";
+  }
+}
+
+// Get the OS
+const os = detectOS();
+
+// Define the shortcut text for both platforms
+const windowsShortcuts = `
+<b>Shortcuts:</b> <br />
+    ( ALT + 1 ) to Login Hostel 1<br />
+    ( ALT + 2 ) to Login Hostel 2<br />
+    ( ALT + 3 ) to Login University<br />
+    ( ALT + Q ) to Logout
+  `;
+
+const macShortcuts = `
+<b>Shortcuts:</b> <br />
+    ( CMD + 1 ) to Login Hostel 1<br />
+    ( CMD + 2 ) to Login Hostel 2<br />
+    ( CMD + 3 ) to Login University<br />
+    ( CMD + Q ) to Logout
+  `;
+
+// Update the text based on the OS
+const shortcutsText = document.getElementById("shortcutsText");
+if (os === "MacOS") {
+  shortcutsText.innerHTML = macShortcuts;
+} else {
+  shortcutsText.innerHTML = windowsShortcuts;
+}

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "VIT InstaConnect",
   "description": "Instantly connect to VIT Wi-Fi without manual logins",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": ["storage", "tabs"],
   "host_permissions": [
     "https://hfw.vitap.ac.in/*",
@@ -50,27 +50,31 @@
   "commands": {
     "executeScriptCommand": {
       "suggested_key": {
-        "default": "Alt+Q"
+        "default": "Alt+Q",
+        "mac": "Command+Q"
       },
       "description": "Execute script and close tab"
     },
     "loginToHostel1": {
       "suggested_key": {
-        "default": "Alt+1"
+        "default": "Alt+1",
+        "mac": "Command+1"
       },
-      "description": "login To Hostel1"
+      "description": "Login to Hostel1"
     },
     "loginToHostel2": {
       "suggested_key": {
-        "default": "Alt+2"
+        "default": "Alt+2",
+        "mac": "Command+2"
       },
-      "description": "login To Hostel2"
+      "description": "Login to Hostel2"
     },
     "loginToUniversity": {
       "suggested_key": {
-        "default": "Alt+3"
+        "default": "Alt+3",
+        "mac": "Command+3"
       },
-      "description": "login To University"
+      "description": "Login to University"
     }
   }
 }
