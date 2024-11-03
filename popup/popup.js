@@ -3,29 +3,60 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById("password");
   const addUserBtn = document.getElementById("addUserBtn");
   const userList = document.getElementById("userList");
-  // const toggleInput = document.getElementById("toggle");
-
-  // chrome.storage.sync.get("startup", function (result) {
-  //   toggle.checked = result.startup === "true";
-  // });
-
-  // toggle.addEventListener("change", function () {
-  //   if (this.checked) {
-  //     // Toggle is ON
-  //     chrome.storage.sync.set({ startup: "true" }, function () {
-  //       console.log("Startup set to true");
-  //     });
-  //   } else {
-  //     // Toggle is OFF
-  //     chrome.storage.sync.set({ startup: "false" }, function () {
-  //       console.log("Startup set to false");
-  //     });
-  //   }
-  // });
-
+  const toggleInput = document.getElementById("toggle");
+  const uni = document.getElementById("uni");
+  const hostel1 = document.getElementById("hostel1");
+  const hostel2 = document.getElementById("hostel2");
+  chrome.storage.sync.get("startup", function (result) {
+    toggleInput.checked = result.startup === "true";
+    if (toggleInput.checked === true) {
+      document.querySelector(".options").style.visibility = "visible";
+    } else {
+      document.querySelector(".options").style.visibility = "hidden";
+    }
+  });
+  chrome.storage.sync.get("uni", function (result) {
+    uni.checked = result.uni === "true";
+  });
+  chrome.storage.sync.get("hostel1", function (result) {
+    hostel1.checked = result.hostel1 === "true";
+  });
+  chrome.storage.sync.get("hostel2", function (result) {
+    hostel2.checked = result.hostel2 === "true";
+  });
   // Load users from chrome storage on page load
   loadUsers();
 
+  toggleInput.addEventListener("change", function () {
+    if (this.checked) {
+      // toggle is ON
+      chrome.storage.sync.set({ startup: "true" }, function () {
+        console.log("Startup set to true");
+      });
+
+      document.querySelector(".options").style.visibility = "visible";
+    } else {
+      // toggle is OFF
+      chrome.storage.sync.set({ startup: "false" }, function () {
+        console.log("Startup set to false");
+      });
+
+      document.querySelector(".options").style.visibility = "hidden";
+    }
+  });
+
+  //For storing user choice of login
+  uni.addEventListener("change", function () {
+    chrome.storage.sync.set({ uni: this.checked ? "true" : "false" });
+  });
+
+  hostel1.addEventListener("change", function () {
+    chrome.storage.sync.set({ hostel1: this.checked ? "true" : "false" });
+  });
+
+  hostel2.addEventListener("change", function () {
+    chrome.storage.sync.set({ hostel2: this.checked ? "true" : "false" });
+  });
   // Add user on button click
   addUserBtn.addEventListener("click", () => {
     const username = usernameInput.value;

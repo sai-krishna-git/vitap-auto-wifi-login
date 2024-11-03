@@ -9,9 +9,17 @@ chrome.runtime.onStartup.addListener(() => {
   //checking for each site
   chrome.storage.sync.get("startup", (res) => {
     if (res.startup === "true") {
-      createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
-      createTab("https://hfw2.vitap.ac.in:8090/httpclient.html");
-      createTab("https://172.18.10.10:1000/login?");
+      chrome.storage.sync.get(["uni", "hostel1", "hostel2"], function (result) {
+        if (result.uni === "true") {
+          createTab("https://172.18.10.10:1000/login?");
+        }
+        if (result.hostel1 === "true") {
+          createTab("https://hfw.vitap.ac.in:8090/httpclient.html");
+        }
+        if (result.hostel2 === "true") {
+          createTab("https://hfw2.vitap.ac.in:8090/httpclient.html");
+        }
+      });
     }
   });
 });

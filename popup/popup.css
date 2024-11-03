@@ -161,14 +161,14 @@ input[type="radio"] {
 #logo {
   border-radius: 20px;
 }
-.heading {
+.heading,
+.options {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 p {
   font-weight: 600;
-  font-size: small;
   color: #6b6565;
 }
 .switch {
@@ -244,7 +244,7 @@ p {
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 175px;
+  width: 180px;
   background-color: #333;
   color: #fff;
   text-align: left;
@@ -254,7 +254,7 @@ p {
   z-index: 1;
   bottom: 125%; /* Position above the icon */
   left: 50%;
-  margin-left: -116px;
+  margin-left: -110px;
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 12px;
